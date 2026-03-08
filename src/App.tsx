@@ -1,5 +1,14 @@
+import RallyForm from "@components/RallyForm";
+import "@styles/index.css"
+
 export default function App() {
     return (
-        <h1>Hello World</h1>
+        <>
+        <h1>Loomian Rally Simulator</h1>
+        <div>
+            <RallyForm loomno={1} />
+            <RallyForm loomno={2} />
+        </div>
+        </>
     );
 }
