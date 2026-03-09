@@ -5,7 +5,7 @@ export default function App() {
     return (
         <>
         <h1>Loomian Rally Simulator</h1>
-        <div>
+        <div className="inline-block">
             <RallyForm loomno={1} />
             <RallyForm loomno={2} />
         </div>

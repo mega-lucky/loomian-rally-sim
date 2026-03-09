@@ -7,3 +7,8 @@ body {
 h1 {
     text-align: center;
 }
+
+.inline-block {
+    display: inline-block;
+    width: 500vw;
+}
