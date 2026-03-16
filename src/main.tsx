@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import App from "@components/App.tsx"
+import App from "@/app/App"
 
 const root: Element | null = document.getElementById("root");
 
