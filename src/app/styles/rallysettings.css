@@ -1,0 +1,50 @@
+.rally-settings {
+    display: inline-block;
+    padding: 12px;
+}
+.rally-settings legend {
+    font-weight: bold;
+    text-align: center;
+}
+.rally-items-list {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 12px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.rally-items-list img {
+    display: block;
+    aspect-ratio: 1/1;
+    width: 7em;
+    height: 7em;
+}
+.rally-items-list label {
+    display: block;
+    font-size: 0.75em;
+    font-weight: bold;
+}
+.rally-items-list select {
+    width: stretch;
+}
+.rally-table-options {
+    margin-block: 20px;
+    font-size: 0.75em;
+    width: fit-content;
+    border-spacing: 5px 0;
+}
+.rally-table-options th {
+    text-align: start;
+}
+.rally-table-options thead {
+    font-size: 1.2em;
+}
+.rally-table-options thead th {
+    text-align: center;
+}
+.auto-ability-section label {
+    font-weight: bold;
+    margin-inline: auto;
+}

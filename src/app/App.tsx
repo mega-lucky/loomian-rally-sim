@@ -1,5 +1,6 @@
 import RallyForm from "@components/RallyForm";
 import "@styles/index.css"
+import RallySettings from "./components/RallySettings";
 
 export default function App() {
     return (
@@ -9,6 +10,7 @@ export default function App() {
             <RallyForm loomno={1} />
             <RallyForm loomno={2} />
         </div>
+        <RallySettings />
         </>
     );
 }

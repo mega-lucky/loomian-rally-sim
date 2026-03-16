@@ -5,7 +5,7 @@ import UPsField from "./UPsField";
 import SpeciesInput from "./SpeciesInput";
 
 import { type Loomian, type LoomianPersonality, type LoomianStat, type uniquePointValue } from "@/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SpeciesData, type SpeciesInfo } from "@/data/species";
 import { usePersonaInputs } from "@/app/hooks/usePersonaInputs";
 
@@ -23,10 +23,6 @@ export default function RallyForm({ loomno }: RallyFormProps) {
     });
     const [ personaInputs, personaInputsDispatch ] = usePersonaInputs();
     const loomianSpeciesData: SpeciesInfo = SpeciesData[loomianData.species];
-
-    useEffect(() => {
-        console.log(loomianData);
-    }, [loomianData]);
 
     const personaInputsOnChange = (inputData: PersonalityInputs): void => {
         let changed: boolean = false;
