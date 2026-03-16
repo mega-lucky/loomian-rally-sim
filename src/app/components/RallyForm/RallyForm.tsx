@@ -1,11 +1,11 @@
 import "@styles/rallyform.css"
 
-import PersionalityField, { type PersonalityInputs } from "./PersonalityField";
+import PersionalityField, { type PersonaInputsAny, type PersonalityInputs } from "./PersonalityField";
 import UPsField from "./UPsField";
 import SpeciesInput from "./SpeciesInput";
 
-import { type Loomian } from "@/types";
-import { useState } from "react";
+import { type Loomian, type LoomianPersonality, type LoomianStat, type uniquePointValue } from "@/types";
+import { useEffect, useState } from "react";
 import { SpeciesData, type SpeciesInfo } from "@/data/species";
 import { usePersonaInputs } from "@/app/hooks/usePersonaInputs";
 
@@ -24,18 +24,27 @@ export default function RallyForm({ loomno }: RallyFormProps) {
     const [ personaInputs, personaInputsDispatch ] = usePersonaInputs();
     const loomianSpeciesData: SpeciesInfo = SpeciesData[loomianData.species];
 
-    const personaInputsOnChange = (value: PersonalityInputs): void => {
+    useEffect(() => {
+        console.log(loomianData);
+    }, [loomianData]);
+
+    const personaInputsOnChange = (inputData: PersonalityInputs): void => {
+        let changed: boolean = false;
+
         const newPersonaData =
-        Object.values(value).reduce((accum: Loomian["personality"], current: PersonalityInputs["strong"|"pos"|"neg"]) => {
+        Object.values(inputData).reduce((accum: LoomianPersonality, current: PersonaInputsAny) => {
             if (current.stat === "" || current.factor === 0) {
                 return accum;
             }
+            if (accum[current.stat] !== current.factor) { changed = true; }
             accum[current.stat] = current.factor;
             return accum;
         }, {ENR: 0, MATK: 0, MDEF: 0, RATK: 0, RDEF: 0, SPE: 0});
+
+        if (!changed) { return; }
         setLoomianData(prev => {
             return {...prev, personality: newPersonaData};
-        })
+        });
     }
 
     const onSpeciesChange = (value: string): void => {
@@ -55,6 +64,12 @@ export default function RallyForm({ loomno }: RallyFormProps) {
     const abilitySelectChanged: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
         setLoomianData(prev => {
             return {...prev, ability: event.target.value}
+        });
+    }
+
+    const onUpsChanged = (stat: LoomianStat, value: uniquePointValue): void => {
+        setLoomianData(prev => {
+            return {...prev, ups: {...prev.ups, [stat]: value}};
         });
     }
 
@@ -93,7 +108,7 @@ export default function RallyForm({ loomno }: RallyFormProps) {
             <UPsField 
                 loomno={loomno}
                 upsData={loomianData.ups}
-                setLoomianData={setLoomianData}
+                onChange={onUpsChanged}
             />
 
             <fieldset className="rally-form-moves-wrap">

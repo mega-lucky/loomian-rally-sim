@@ -1,5 +1,6 @@
 import { memo, type Dispatch } from "react";
 import { getStatFromPersonality, short as statsShort, positive, negative, strong as strongPersonalities } from "@/data/stats";
+import type { WeakPersonality } from "@/types";
 
 export interface PersonalityInputs {
     strong: {
@@ -14,28 +15,32 @@ export interface PersonalityInputs {
         stat: "ENR"|"MATK"|"MDEF"|"RATK"|"RDEF"|"SPE"|"",
         factor: -1|0|1
     },
-}
+};
+
+export type PersonaInputsStrong = PersonalityInputs["strong"];
+export type PersonaInputsPos = PersonalityInputs["pos"];
+export type PersonaInputsNeg = PersonalityInputs["neg"];
+export type PersonaInputsWeak = PersonaInputsPos | PersonaInputsNeg;
+export type PersonaInputsAny = PersonaInputsStrong | PersonaInputsWeak;
 
 export type PersonaUpdateAction = {
     type: "SET_STRONG" | "SET_POS" | "SET_NEG" | "RESET",
     value?: string
 };
 
-const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDispatch, onChange } : {
+const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDispatch } : {
     loomno: 1 | 2,
     personaInputs: PersonalityInputs,
     personaInputsDispatch: Dispatch<PersonaUpdateAction>
-    onChange?: (value: PersonalityInputs) => void
+    onChange?: (inputData: PersonalityInputs) => void
 }) {
     const { strong: strongInput, pos: posInput, neg: negInput} = personaInputs;
 
-    const posOptions: readonly string[] = strongInput.factor > 0 ? negative : positive;
-    const negOptions: readonly string[] = strongInput.factor < 0 ? positive : negative;
+    const posOptions: readonly WeakPersonality[] = strongInput.factor > 0 ? negative : positive;
+    const negOptions: readonly WeakPersonality[] = strongInput.factor < 0 ? positive : negative;
 
     return (
-        <fieldset className="rally-form-personality-wrap"
-        onChange={() => onChange?.(personaInputs)}
-        >
+        <fieldset className="rally-form-personality-wrap">
             <legend>Personality:</legend>
             <div className="rally-form-personality-row">
                 <label htmlFor={`strong-sona-${loomno}`}>Strong:</label>

@@ -1,37 +1,35 @@
-import { memo, type Dispatch, type SetStateAction } from "react";
+import { memo } from "react";
 import { short as statsShort } from "@/data/stats"
-import { type Loomian } from "@/types";
+import { type LoomianStat, type LoomianUPs, type uniquePointValue } from "@/types";
 
-const UPsField = memo(function({ loomno, upsData, setLoomianData } : {
+const UPsField = memo(function({ loomno, upsData, onChange } : {
     loomno: 1 | 2,
-    upsData: Loomian["ups"],
-    setLoomianData: Dispatch<SetStateAction<Loomian>>
+    upsData: LoomianUPs,
+    onChange?: (stat: LoomianStat, value: uniquePointValue) => void
 }) {
-    const handleUpChange = (stat: typeof statsShort[number], value: string) => {
+    const handleUpChange = (stat: LoomianStat, value: string) => {
         let numberVal = Number(value.match(/^\d+/));
         if (numberVal > 40) numberVal = 40;
         else if (numberVal < 0) numberVal = 0;
-
-        setLoomianData(prev => {
-            return {...prev, ups: {...prev.ups, [stat]: numberVal}}
-        })
+        
+        onChange?.(stat, numberVal as uniquePointValue);
     }
     return (
         <fieldset className="rally-form-ups-wrap">
             <legend>UPs:</legend>
             <div className="rally-form-ups-inputs-wrap">{
-                statsShort.map((it, idx) => {
-                    const id: string = `${it}-up-${loomno}`;
+                statsShort.map((stat, idx) => {
+                    const id: string = `${stat}-up-${loomno}`;
 
                     return (
                         <div className="rally-form-ups-input" key={idx}>
-                            <label htmlFor={id}>{it}</label>
+                            <label htmlFor={id}>{stat}</label>
                             <input
                             type="number"
                             min="0" max="40"
-                            value={upsData[it].toString()}
+                            value={upsData[stat].toString()}
                             id={id}
-                            onChange={(ev) => handleUpChange(it, ev.target.value)}
+                            onChange={(ev) => handleUpChange(stat, ev.target.value)}
                             />
                         </div>
                     );

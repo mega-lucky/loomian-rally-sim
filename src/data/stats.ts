@@ -1,3 +1,5 @@
+import type { PersonalityStat } from "@/types";
+
 export const short = ["HP", "ENR", "MATK", "MDEF", "RATK", "RDEF", "SPE"] as const;
 export const long = ["Health", "Energy", "Melee Attack", "Melee Defence", "Ranged Attack", "Ranged Defence", "Speed"] as const;
 export const abbreviatedLong = ["Health", "Energy", "M. Attack", "M. Defence", "R. Attack", "R. Defence", "Speed"] as const;
@@ -49,8 +51,8 @@ export const getStatFromPersonality = (personality: string) => {
     }
 }
 
-export const getPersonalityFromStat = (stat: Exclude<typeof short[number], "HP">, factor: -2|-1|0|1|2) => {
-    if (factor === 0) { return "Indifferent"; }
+export const getPersonalityFromStat = (stat: PersonalityStat, factor: -2|-1|0|1|2) => {
+    if (stat === "" || factor === 0) { return "Indifferent"; }
 
     const index = short.indexOf(stat);
     if (index === -1 || index === 0) { return; }

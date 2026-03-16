@@ -1,12 +1,12 @@
 import { useReducer, type ActionDispatch } from "react";
-import { type PersonalityInputs, type PersonaUpdateAction } from "@components/RallyForm/PersonalityField";
+import { type PersonaInputsAny, type PersonaInputsStrong, type PersonaInputsWeak, type PersonalityInputs, type PersonaUpdateAction } from "@components/RallyForm/PersonalityField";
 import { short as statsShort } from "@/data/stats";
-import { type personalityValue } from "@/types";
+import { type PersonalityStat, type personalityValue } from "@/types";
 
-const parsePersonaValue = (value?: string): PersonalityInputs["strong"|"pos"|"neg"] => {
+const parsePersonaValue = (value?: string): PersonaInputsAny => {
     if (!value) { return {stat: "", factor: 0}; }
 
-    const stat = value.replace(/^(\w*):-?\d+$/, "$1") as Exclude<typeof statsShort[number], "HP">;
+    const stat = value.replace(/^(\w*):-?\d+$/, "$1") as PersonalityStat;
     const factor = Number(value.replace(/^\w*:(-?\d+)$/, "$1")) as personalityValue;
 
     return {stat: stat, factor: factor};
@@ -15,7 +15,7 @@ const parsePersonaValue = (value?: string): PersonalityInputs["strong"|"pos"|"ne
 const personaReducer = (state: PersonalityInputs, action: PersonaUpdateAction): PersonalityInputs => {
     switch (action.type) {
         case "SET_STRONG": {
-            const {stat, factor} = parsePersonaValue(action.value) as PersonalityInputs["strong"];
+            const {stat, factor} = parsePersonaValue(action.value) as PersonaInputsStrong;
 
             if (stat === "" || factor === 0) {
                 return {
@@ -27,7 +27,7 @@ const personaReducer = (state: PersonalityInputs, action: PersonaUpdateAction): 
 
             const availableStats = statsShort.filter(it => {
                 return it !== "HP" && it !== stat;
-            }) as Exclude<typeof statsShort[number], "HP">[];
+            }) as PersonalityStat[];
 
             let posStat = state.pos.stat;
             let negStat = state.neg.stat;
@@ -36,7 +36,7 @@ const personaReducer = (state: PersonalityInputs, action: PersonaUpdateAction): 
                 posStat = availableStats[0];
             }
             if (negStat === "" || !availableStats.includes(negStat) || negStat === posStat) {
-                negStat = availableStats.find((it: string) => it !== posStat) as Exclude<typeof statsShort[number], "HP">;
+                negStat = availableStats.find((it: string) => it !== posStat) as PersonalityStat;
             }
 
             const weakFactor: 1 | -1 = factor > 0 ? -1 : 1;
@@ -50,7 +50,7 @@ const personaReducer = (state: PersonalityInputs, action: PersonaUpdateAction): 
         case "SET_POS":
         case "SET_NEG": {
             const key = action.type === "SET_POS" ? "pos" : "neg";
-            const {stat, factor} = parsePersonaValue(action.value) as PersonalityInputs["pos"|"neg"];
+            const {stat, factor} = parsePersonaValue(action.value) as PersonaInputsWeak;
             return {
                 ...state,
                 [key]: {
