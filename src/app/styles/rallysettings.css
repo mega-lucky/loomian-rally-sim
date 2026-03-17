@@ -33,7 +33,7 @@
     margin-block: 20px;
     font-size: 0.75em;
     width: fit-content;
-    border-spacing: 5px 0;
+    border-spacing: 8px 0;
 }
 .rally-table-options th {
     text-align: start;
@@ -44,7 +44,10 @@
 .rally-table-options thead th {
     text-align: center;
 }
-.auto-ability-section label {
-    font-weight: bold;
-    margin-inline: auto;
+.rally-table-options input[type="number"] {
+    max-width: 2.5em;
+    text-align: center;
+}
+.hidden {
+    visibility: hidden;
 }
