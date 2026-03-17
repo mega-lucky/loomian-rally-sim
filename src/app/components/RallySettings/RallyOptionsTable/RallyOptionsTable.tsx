@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback } from "react";
 import { type LoomianStat, type uniquePointValue } from "@/types";
 import AutoRallyUPInputs from "./AutoRallyUPInputs";
 import RallyCheckOption from "./RallyCheckOption";
@@ -41,8 +41,6 @@ const RallyOptionsTable = memo(function({ rallyOptions, onChange }: {
         
         onChange?.(`auto${stat}upValue`, numberVal as uniquePointValue);
     }, [onChange]);
-
-    useEffect(()=>console.log(rallyOptions), [rallyOptions]);
 
     return (
         <table className="rally-table-options">
