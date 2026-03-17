@@ -1,5 +1,5 @@
 import "@styles/rallysettings.css"
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import RallyItems from "./RallyItems";
 import RallyOptionsTable, { type RallyOptionKey, type RallyOptions, type RallyOptionValue } from "./RallyOptionsTable";
 
@@ -23,17 +23,17 @@ export default function RallySettings() {
         autoSPEupValue: 40,
     });
 
-    const rallyItemOnChange = (key: "fruit"|"toy"|"totem", value: string) => {
+    const rallyItemOnChange = useCallback((key: "fruit"|"toy"|"totem", value: string) => {
         setRallyItems(prev => {
             return {...prev, [key]: value};
         });
-    }
+    }, [setRallyItems]);
 
-    const rallyOptionsOnChange = (key: RallyOptionKey, value: RallyOptionValue) => {
+    const rallyOptionsOnChange = useCallback((key: RallyOptionKey, value: RallyOptionValue) => {
         setRallyOptions(prev => {
             return {...prev, [key]: value};
         });
-    }
+    }, [setRallyOptions]);
 
     return (
         <fieldset className="rally-settings">
@@ -42,6 +42,7 @@ export default function RallySettings() {
             rallyItems={rallyItems}
             onChange={rallyItemOnChange}
             />
+            
             <RallyOptionsTable
             rallyOptions={rallyOptions}
             onChange={rallyOptionsOnChange}
