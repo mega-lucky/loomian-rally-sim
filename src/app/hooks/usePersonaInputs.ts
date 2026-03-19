@@ -1,13 +1,13 @@
 import { useReducer, type ActionDispatch } from "react";
 import { type PersonaInputsAny, type PersonaInputsStrong, type PersonaInputsWeak, type PersonalityInputs, type PersonaUpdateAction } from "@components/RallyForm/PersonalityField";
 import { short as statsShort } from "@/data/stats";
-import { type PersonalityStat, type personalityValue } from "@/types";
+import { type PersonalityStat, type PersonalityValue } from "@/types";
 
 const parsePersonaValue = (value?: string): PersonaInputsAny => {
     if (!value) { return {stat: "", factor: 0}; }
 
     const stat = value.replace(/^(\w*):-?\d+$/, "$1") as PersonalityStat;
-    const factor = Number(value.replace(/^\w*:(-?\d+)$/, "$1")) as personalityValue;
+    const factor = Number(value.replace(/^\w*:(-?\d+)$/, "$1")) as PersonalityValue;
 
     return {stat: stat, factor: factor};
 }

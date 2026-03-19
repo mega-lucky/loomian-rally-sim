@@ -4,7 +4,7 @@ import PersionalityField, { type PersonaInputsAny, type PersonalityInputs } from
 import UPsField from "./UPsField";
 import SpeciesInput from "./SpeciesInput";
 
-import { type Loomian, type LoomianPersonality, type LoomianStat, type uniquePointValue } from "@/types";
+import { type Loomian, type LoomianPersonality, type LoomianStat, type UniquePointValue } from "@/types";
 import { useState } from "react";
 import { SpeciesData, type SpeciesInfo } from "@/data/species";
 import { usePersonaInputs } from "@/app/hooks/usePersonaInputs";
@@ -63,7 +63,7 @@ export default function RallyForm({ loomno }: RallyFormProps) {
         });
     }
 
-    const onUpsChanged = (stat: LoomianStat, value: uniquePointValue): void => {
+    const onUpsChanged = (stat: LoomianStat, value: UniquePointValue): void => {
         setLoomianData(prev => {
             return {...prev, ups: {...prev.ups, [stat]: value}};
         });

@@ -1,0 +1,42 @@
+.rally-result {
+    font-size: 0.9em;
+    width: stretch;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1em;
+    padding: 12px;
+    border: 1px solid grey;
+}
+.rally-result img {
+    aspect-ratio: 1/1;
+    flex-grow: 1;
+    border: 1px solid grey;
+}
+.rally-result legend {
+    font-weight: bold;
+    text-align: center;
+}
+.rally-result table {
+    border-spacing: 0.5em 0;
+    table-layout: fixed;
+    display: inline-table;
+}
+.rally-result table th {
+    text-align: start;
+    vertical-align: top;
+}
+.rally-result table td {
+    text-align: center;
+    vertical-align: top;
+    font-style: italic;
+    width: 12em;
+}
+.result-up-table {
+    padding-block: 5px;
+}
+.result-up-table th {
+    font-weight: normal;
+}
+.result-up-table td {
+    width: 2.5em !important;
+}

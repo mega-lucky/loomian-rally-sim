@@ -1,18 +1,18 @@
 import { memo } from "react";
 import { short as statsShort } from "@/data/stats"
-import { type LoomianStat, type LoomianUPs, type uniquePointValue } from "@/types";
+import { type LoomianStat, type LoomianUPs, type UniquePointValue } from "@/types";
 
 const UPsField = memo(function({ loomno, upsData, onChange } : {
     loomno: 1 | 2,
     upsData: LoomianUPs,
-    onChange?: (stat: LoomianStat, value: uniquePointValue) => void
+    onChange?: (stat: LoomianStat, value: UniquePointValue) => void
 }) {
     const handleUpChange = (stat: LoomianStat, value: string) => {
         let numberVal = Number(value.match(/^\d+/));
         if (numberVal > 40) numberVal = 40;
         else if (numberVal < 0) numberVal = 0;
         
-        onChange?.(stat, numberVal as uniquePointValue);
+        onChange?.(stat, numberVal as UniquePointValue);
     }
     return (
         <fieldset className="rally-form-ups-wrap">

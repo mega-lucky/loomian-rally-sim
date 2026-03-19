@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { type LoomianStat, type uniquePointValue } from "@/types";
+import { type LoomianStat, type UniquePointValue } from "@/types";
 import AutoRallyUPInputs from "./AutoRallyUPInputs";
 import RallyCheckOption from "./RallyCheckOption";
 
@@ -18,13 +18,13 @@ export interface RallyOptions {
     autoRATKup: boolean,
     autoRDEFup: boolean,
     autoSPEup: boolean,
-    autoHPupValue: uniquePointValue,
-    autoENRupValue: uniquePointValue,
-    autoMATKupValue: uniquePointValue,
-    autoMDEFupValue: uniquePointValue,
-    autoRATKupValue: uniquePointValue,
-    autoRDEFupValue: uniquePointValue,
-    autoSPEupValue: uniquePointValue,
+    autoHPupValue: UniquePointValue,
+    autoENRupValue: UniquePointValue,
+    autoMATKupValue: UniquePointValue,
+    autoMDEFupValue: UniquePointValue,
+    autoRATKupValue: UniquePointValue,
+    autoRDEFupValue: UniquePointValue,
+    autoSPEupValue: UniquePointValue,
 }
 export type RallyOptionKey = keyof RallyOptions;
 export type RallyOptionValue = RallyOptions[RallyOptionKey];
@@ -39,7 +39,7 @@ const RallyOptionsTable = memo(function({ rallyOptions, onChange }: {
         if (numberVal > 40) numberVal = 40;
         else if (numberVal < 0) numberVal = 0;
         
-        onChange?.(`auto${stat}upValue`, numberVal as uniquePointValue);
+        onChange?.(`auto${stat}upValue`, numberVal as UniquePointValue);
     }, [onChange]);
 
     return (
