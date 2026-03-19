@@ -1,4 +1,4 @@
-import { memo, type Dispatch } from "react";
+import { memo, useEffect, type Dispatch } from "react";
 import { getStatFromPersonality, short as statsShort, positive, negative, strong as strongPersonalities } from "@/data/stats";
 import type { WeakPersonality } from "@/types";
 
@@ -28,7 +28,7 @@ export type PersonaUpdateAction = {
     value?: string
 };
 
-const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDispatch } : {
+const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDispatch, onChange } : {
     loomno: 1 | 2,
     personaInputs: PersonalityInputs,
     personaInputsDispatch: Dispatch<PersonaUpdateAction>
@@ -39,6 +39,13 @@ const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDi
     const posOptions: readonly WeakPersonality[] = strongInput.factor > 0 ? negative : positive;
     const negOptions: readonly WeakPersonality[] = strongInput.factor < 0 ? positive : negative;
 
+    const updateInputs = (dispatchType: PersonaUpdateAction["type"], value: string) => {
+        personaInputsDispatch({type: dispatchType, value: value});
+    }
+    useEffect(() => {
+        onChange?.(personaInputs);
+    }, [personaInputs, onChange]);
+
     return (
         <fieldset className="rally-form-personality-wrap">
             <legend>Personality:</legend>
@@ -47,7 +54,7 @@ const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDi
                 <select
                     value={`${strongInput.stat}:${strongInput.factor}`}
                     id={`strong-sona-${loomno}`}
-                    onChange={ev => personaInputsDispatch({type: "SET_STRONG", value: ev.target.value})}
+                    onChange={ev => updateInputs("SET_STRONG", ev.target.value)}
                 >
                     <option value=":0">(none)</option>
                     {strongPersonalities.positive.map((it,idx) =>
@@ -63,7 +70,7 @@ const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDi
                 <select
                     value={`${posInput.stat}:${posInput.factor}`}
                     id={`pos-sona-${loomno}`}
-                    onChange={ev => personaInputsDispatch({type: "SET_POS", value: ev.target.value})}
+                    onChange={ev => updateInputs("SET_POS", ev.target.value)}
                 >
                     {strongInput.factor === 0 && <option value=":0">(none)</option>}
                     {
@@ -83,7 +90,7 @@ const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDi
                 <select
                     value={`${negInput.stat}:${negInput.factor}`}
                     id={`neg-sona-${loomno}`}
-                    onChange={ev => personaInputsDispatch({type: "SET_NEG", value: ev.target.value})}
+                    onChange={ev => updateInputs("SET_NEG", ev.target.value)}
                 >
                     {strongInput.factor === 0 && <option value=":0">(none)</option>}
                     {
