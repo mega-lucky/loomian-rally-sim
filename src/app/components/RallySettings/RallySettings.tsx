@@ -1,27 +1,15 @@
 import "@styles/rallysettings.css"
-import { useCallback, useState } from "react";
+import { useCallback, type Dispatch, type SetStateAction } from "react";
 import RallyItems from "./RallyItems";
-import RallyOptionsTable, { type RallyOptionKey, type RallyOptions, type RallyOptionValue } from "./RallyOptionsTable";
+import type { RallyOptionKey, RallyOptions, RallyOptionValue, RallyItemsType } from "@/types"
+import RallyOptionsTable from "./RallyOptionsTable";
 
-export default function RallySettings() {
-    const [ rallyItems, setRallyItems ] = useState({fruit: "", toy: "", totem: ""});
-    const [ rallyOptions, setRallyOptions] = useState<RallyOptions>({
-        gleamCharm: false,
-        gleamBoost: false,
-        abilityCharm: false,
-        autoRally: false,
-        autoGleaming: false,
-        autoAbility: "",
-        autoUPs: false,
-        autoHPup: false, autoENRup: false,
-        autoMATKup: false, autoMDEFup: false,
-        autoRATKup: false, autoRDEFup: false,
-        autoSPEup: false,
-        autoHPupValue: 40, autoENRupValue: 40,
-        autoMATKupValue: 40, autoMDEFupValue: 40,
-        autoRATKupValue: 40, autoRDEFupValue: 40,
-        autoSPEupValue: 40,
-    });
+export default function RallySettings({ rallyItemsState, rallyOptionsState }: {
+    rallyItemsState: [RallyItemsType, Dispatch<SetStateAction<RallyItemsType>>],
+    rallyOptionsState: [RallyOptions, Dispatch<SetStateAction<RallyOptions>>]
+}) {
+    const [ rallyItems, setRallyItems ] = rallyItemsState;
+    const [ rallyOptions, setRallyOptions] = rallyOptionsState;
 
     const rallyItemOnChange = useCallback((key: "fruit"|"toy"|"totem", value: string) => {
         setRallyItems(prev => {

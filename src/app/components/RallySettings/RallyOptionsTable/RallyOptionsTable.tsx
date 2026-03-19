@@ -1,33 +1,7 @@
 import { memo, useCallback } from "react";
-import { type LoomianStat, type UniquePointValue } from "@/types";
+import type { LoomianStat, UniquePointValue, RallyOptions, RallyOptionKey, RallyOptionValue } from "@/types";
 import AutoRallyUPInputs from "./AutoRallyUPInputs";
 import RallyCheckOption from "./RallyCheckOption";
-
-export interface RallyOptions {
-    gleamCharm: boolean,
-    gleamBoost: boolean,
-    abilityCharm: boolean,
-    autoRally: boolean,
-    autoGleaming: boolean,
-    autoAbility: string,
-    autoUPs: boolean,
-    autoHPup: boolean,
-    autoENRup: boolean,
-    autoMATKup: boolean,
-    autoMDEFup: boolean,
-    autoRATKup: boolean,
-    autoRDEFup: boolean,
-    autoSPEup: boolean,
-    autoHPupValue: UniquePointValue,
-    autoENRupValue: UniquePointValue,
-    autoMATKupValue: UniquePointValue,
-    autoMDEFupValue: UniquePointValue,
-    autoRATKupValue: UniquePointValue,
-    autoRDEFupValue: UniquePointValue,
-    autoSPEupValue: UniquePointValue,
-}
-export type RallyOptionKey = keyof RallyOptions;
-export type RallyOptionValue = RallyOptions[RallyOptionKey];
 
 const RallyOptionsTable = memo(function({ rallyOptions, onChange }: {
     rallyOptions: RallyOptions,

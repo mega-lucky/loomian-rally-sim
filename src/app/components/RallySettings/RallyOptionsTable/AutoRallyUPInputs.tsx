@@ -1,6 +1,6 @@
 import type { LoomianStat } from "@/types";
 import { memo } from "react";
-import type { RallyOptions, RallyOptionKey, RallyOptionValue } from "./RallyOptionsTable";
+import type { RallyOptions, RallyOptionKey, RallyOptionValue } from "@/types";
 
 const AutoRallyUPInputs = memo(function({ stat, rallyOptions, onChange, onAutoUPChange }: {
     stat: LoomianStat,

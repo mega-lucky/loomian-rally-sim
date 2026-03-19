@@ -19,11 +19,11 @@ export default function RallyResult({loomianData} : {
                 <tbody>
                     <tr>
                         <th>Species:</th>
-                        <td>{loomianData.species}</td>
+                        <td>{loomianData.species || "none"}</td>
                     </tr>
                     <tr>
                         <th>Ability:</th>
-                        <td>{loomianData.ability}</td>
+                        <td>{loomianData.ability || "none"}</td>
                     </tr>
                     <tr>
                         <th>Personality:</th>

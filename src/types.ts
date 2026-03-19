@@ -27,3 +27,35 @@ export interface Loomian {
     ups: LoomianUPs,
     moves: [string?, string?, string?, string?]
 }
+
+export interface RallyOptions {
+    gleamCharm: boolean,
+    gleamBoost: boolean,
+    abilityCharm: boolean,
+    autoRally: boolean,
+    autoGleaming: boolean,
+    autoAbility: string,
+    autoUPs: boolean,
+    autoHPup: boolean,
+    autoENRup: boolean,
+    autoMATKup: boolean,
+    autoMDEFup: boolean,
+    autoRATKup: boolean,
+    autoRDEFup: boolean,
+    autoSPEup: boolean,
+    autoHPupValue: UniquePointValue,
+    autoENRupValue: UniquePointValue,
+    autoMATKupValue: UniquePointValue,
+    autoMDEFupValue: UniquePointValue,
+    autoRATKupValue: UniquePointValue,
+    autoRDEFupValue: UniquePointValue,
+    autoSPEupValue: UniquePointValue,
+}
+export type RallyOptionKey = keyof RallyOptions;
+export type RallyOptionValue = RallyOptions[RallyOptionKey];
+
+export interface RallyItemsType {
+    fruit: string,
+    toy: string,
+    totem: string
+};

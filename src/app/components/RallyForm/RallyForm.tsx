@@ -4,23 +4,18 @@ import PersionalityField, { type PersonaInputsAny, type PersonalityInputs } from
 import UPsField from "./UPsField";
 import SpeciesInput from "./SpeciesInput";
 
-import { type Loomian, type LoomianPersonality, type LoomianStat, type UniquePointValue } from "@/types";
-import { useState } from "react";
+import type { Loomian, LoomianPersonality, LoomianStat, UniquePointValue } from "@/types";
+import type { Dispatch, SetStateAction } from "react";
 import { SpeciesData, type SpeciesInfo } from "@/data/species";
 import { usePersonaInputs } from "@/app/hooks/usePersonaInputs";
 
 export type RallyFormProps = {
-    loomno: 1 | 2
+    loomno: 1 | 2,
+    loomianState: [Loomian, Dispatch<SetStateAction<Loomian>>]
 };
 
-export default function RallyForm({ loomno }: RallyFormProps) {
-    const [loomianData, setLoomianData] = useState<Loomian>({
-        species: "",
-        ability: "",
-        personality: {ENR: 0, MATK: 0, MDEF: 0, RATK: 0, RDEF: 0, SPE: 0},
-        ups: {HP: 40, ENR: 40, MATK: 40, MDEF: 40, RATK: 40, RDEF: 40, SPE: 40},
-        moves: []
-    });
+export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
+    const [loomianData, setLoomianData] = loomianState;
     const [ personaInputs, personaInputsDispatch ] = usePersonaInputs();
     const loomianSpeciesData: SpeciesInfo = SpeciesData[loomianData.species];
 
@@ -71,7 +66,7 @@ export default function RallyForm({ loomno }: RallyFormProps) {
 
     return (
         <fieldset className="rally-form">
-            <legend>Loomian {loomno}</legend>
+            <legend>{loomno === 1 ? "Rally Leader" : "Rally Assistant"}</legend>
             <img className="rally-form-img" src="none" alt="Loomian"/>
             <SpeciesInput
             loomianSpeciesData={loomianSpeciesData}

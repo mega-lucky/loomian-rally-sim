@@ -1,5 +1,5 @@
 import { memo } from "react";
-import type { RallyOptionKey, RallyOptionValue, RallyOptions } from "./RallyOptionsTable";
+import type { RallyOptionKey, RallyOptionValue, RallyOptions } from "@/types";
 
 const RallyCheckOption = memo(function({ rallyOptions, rallyOptionKey, onChange }: {
     rallyOptions: RallyOptions,
