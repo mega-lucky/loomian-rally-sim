@@ -30,7 +30,7 @@ export default function RallyResult({loomianData} : {
                         <td>{personalityString}</td>
                     </tr>
                     <tr>
-                        <th style={{verticalAlign: "start"}}>UPs:</th>
+                        <th>UPs:</th>
                         <td>
                             <table className="result-up-table">
                                 <tbody>

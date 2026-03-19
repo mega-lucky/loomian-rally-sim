@@ -52,7 +52,7 @@ export const getStatFromPersonality = (personality: string) => {
 }
 
 export const getPersonalityFromStat = (stat: PersonalityStat, factor: -2|-1|0|1|2) => {
-    if (stat === "" || factor === 0) { return "Indifferent"; }
+    if (factor === 0) { return "Indifferent"; }
 
     const index = short.indexOf(stat);
     if (index === -1 || index === 0) { return; }
