@@ -32,7 +32,7 @@ const RallyItems = memo(function({ rallyItems, onChange }: {
                 onChange={onChange}
             />
             <RallyItemListItem
-                value={rallyItems.fruit}
+                value={rallyItems.totem}
                 rallyItemKey="totem"
                 items={totems}
                 onChange={onChange}
