@@ -9,8 +9,8 @@ export default function RallyResult({loomianData} : {
     const personalityString: string =
     Object.entries(loomianData.personality).reduce((accum: string, [stat, factor]: [string, PersonalityValue]) => {
         if (factor === 0) { return accum; }
-        return accum + getPersonalityFromStat(stat as PersonalityStat, factor);
-    }, "") || "Indifferent";
+        return accum + getPersonalityFromStat(stat as PersonalityStat, factor) + " ";
+    }, "").trim() || "Indifferent";
 
     return (
         <div className="rally-result">

@@ -6,7 +6,11 @@ const RallyItems = memo(function({ rallyItems, onChange }: {
     onChange?: (key: "fruit"|"toy"|"totem", value: string) => void
 }) {
     const fruitItems: [string, string][] = [
-        ["tutifruit", "Tutifruit"]
+        ["stromberry", "Stromberry"],
+        ["blumelon", "Blumelon"],
+        ["tutifruit", "Tutifruit"],
+        ["wonderbean", "Wonderbean"],
+        ["jewelfruit", "Jewelfruit"],
     ];
     const toyItems: [string, string][] = [
         ["bouncing-ball", "Bouncing Ball"],

@@ -5,7 +5,7 @@ import useRally from "@hooks/useRally";
 import "@styles/index.css"
 
 export default function App() {
-    const { rallyLeader, rallyAssistant, rallyItems, rallyOptions, rallyResult } = useRally();
+    const { rallyLeader, rallyAssistant, rallyItems, rallyOptions, rallyResult, solveRally } = useRally();
 
     return (
         <>
@@ -16,7 +16,7 @@ export default function App() {
         </div>
         <div className="rally-option-result-container">
             <RallySettings rallyItemsState={rallyItems} rallyOptionsState={rallyOptions}/>
-            <button>Rally</button>
+            <button onClick={()=>solveRally()}>Rally</button>
             <RallyResult 
                 loomianData={rallyResult[0]}
             />
