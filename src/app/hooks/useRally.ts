@@ -58,7 +58,7 @@ const solveUPs = (leaderUPs: LoomianUPs, assistantUPs: LoomianUPs|undefined, fru
     return result;
 }
 
-const solvePersonality = (leaderPersona: LoomianPersonality, assistantPersona: LoomianPersonality|undefined, toy: string, totem: string): LoomianPersonality => {
+const solvePersonality = (leaderPersona: LoomianPersonality, _: LoomianPersonality|undefined, toy: string, totem: string): LoomianPersonality => {
     let posStat: PersonalityStat|undefined = undefined;
     let negStat: PersonalityStat|undefined = undefined;
     const personaStats = short.filter(it => it !== "HP");
@@ -180,8 +180,17 @@ const useRally = function() {
         const newRallyData: Loomian = {
             species: rallySpecies,
             ability: rallySpeciesData.abilities[0],
-            ups: solveUPs(rallyLeader.ups, rallyAssistant.species ? rallyAssistant.ups : undefined, rallyItems.fruit),
-            personality: solvePersonality(rallyLeader.personality, rallyAssistant.species ? rallyAssistant.personality : undefined, rallyItems.toy, rallyItems.totem),
+            ups: solveUPs(
+                rallyLeader.ups,
+                rallyAssistant.species ? rallyAssistant.ups : undefined,
+                rallyItems.fruit
+            ),
+            personality: solvePersonality(
+                rallyLeader.personality,
+                rallyAssistant.species ? rallyAssistant.personality : undefined,
+                rallyItems.toy,
+                rallyItems.totem
+            ),
             moves: []
         };
 
