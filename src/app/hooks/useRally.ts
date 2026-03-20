@@ -80,6 +80,7 @@ const solvePersonality = (leaderPersona: LoomianPersonality, _: LoomianPersonali
 
                 const negIndex = Math.floor(Math.random() * personaStats.length);
                 negStat = personaStats[negIndex];
+                personaStats.splice(negIndex, 1);
             }
             break;
         }
