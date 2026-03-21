@@ -13,7 +13,9 @@ const RallyItems = memo(function({ rallyItems, onChange }: {
         ["jewelfruit", "Jewelfruit"],
     ];
     const toyItems: [string, string][] = [
-        ["bouncing-ball", "Bouncing Ball"],
+        ["rubber-toy", "Rubber Toy"],
+        ["bouncy-ball", "Bouncy Ball"],
+        ["puzzle-cube", "Puzzle Cube"],
         ["yo-yo", "Rally Yo-yo"],
     ];
     const totems: [string, string][] = [
