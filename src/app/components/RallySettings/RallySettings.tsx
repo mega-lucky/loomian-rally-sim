@@ -1,12 +1,12 @@
 import "@styles/rallysettings.css"
-import { useCallback, type Dispatch, type SetStateAction } from "react";
+import { useCallback } from "react";
 import RallyItems from "./RallyItems";
-import type { RallyOptionKey, RallyOptions, RallyOptionValue, RallyItemsType } from "@/types"
+import type { RallyOptionKey, RallyOptions, RallyOptionValue, RallyItemsType, StateSetter } from "@/types"
 import RallyOptionsTable from "./RallyOptionsTable";
 
 export default function RallySettings({ rallyItemsState, rallyOptionsState }: {
-    rallyItemsState: [RallyItemsType, Dispatch<SetStateAction<RallyItemsType>>],
-    rallyOptionsState: [RallyOptions, Dispatch<SetStateAction<RallyOptions>>]
+    rallyItemsState: [RallyItemsType, StateSetter<RallyItemsType>],
+    rallyOptionsState: [RallyOptions, StateSetter<RallyOptions>]
 }) {
     const [ rallyItems, setRallyItems ] = rallyItemsState;
     const [ rallyOptions, setRallyOptions] = rallyOptionsState;

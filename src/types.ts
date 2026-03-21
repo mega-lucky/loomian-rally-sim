@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from "react";
+
 export type PersonalityValue = -2 | -1 | 0 | 1 | 2;
 export type UniquePointValue =
     1 |2 |3 |4 |5 |6 |7 |8 |9 |10|
@@ -59,3 +61,5 @@ export interface RallyItemsType {
     toy: string,
     totem: string
 };
+
+export type StateSetter<T> = Dispatch<SetStateAction<T>>;

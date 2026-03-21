@@ -4,15 +4,14 @@ import PersionalityField, { type PersonaInputsAny, type PersonalityInputs } from
 import UPsField from "./UPsField";
 import SpeciesInput from "./SpeciesInput";
 
-import type { Loomian, LoomianPersonality, LoomianStat, LoomianUPs, UniquePointValue } from "@/types";
-import type { Dispatch, SetStateAction } from "react";
+import type { Loomian, LoomianPersonality, LoomianStat, LoomianUPs, StateSetter, UniquePointValue } from "@/types";
 import { SpeciesData, type SpeciesInfo } from "@/data/species";
 import { usePersonaInputs } from "@/app/hooks/usePersonaInputs";
 import { short } from "@/data/stats";
 
 export type RallyFormProps = {
     loomno: 1 | 2,
-    loomianState: [Loomian, Dispatch<SetStateAction<Loomian>>]
+    loomianState: [Loomian, StateSetter<Loomian>]
 };
 
 const personalitiesEqual = (sonaA: LoomianUPs, sonaB: LoomianPersonality) => {
