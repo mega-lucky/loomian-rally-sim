@@ -4,15 +4,23 @@ import PersionalityField, { type PersonaInputsAny, type PersonalityInputs } from
 import UPsField from "./UPsField";
 import SpeciesInput from "./SpeciesInput";
 
-import type { Loomian, LoomianPersonality, LoomianStat, UniquePointValue } from "@/types";
+import type { Loomian, LoomianPersonality, LoomianStat, LoomianUPs, UniquePointValue } from "@/types";
 import type { Dispatch, SetStateAction } from "react";
 import { SpeciesData, type SpeciesInfo } from "@/data/species";
 import { usePersonaInputs } from "@/app/hooks/usePersonaInputs";
+import { short } from "@/data/stats";
 
 export type RallyFormProps = {
     loomno: 1 | 2,
     loomianState: [Loomian, Dispatch<SetStateAction<Loomian>>]
 };
+
+const personalitiesEqual = (sonaA: LoomianUPs, sonaB: LoomianPersonality) => {
+    return short.every(stat => {
+        if (stat === "HP") { return true; }
+        return sonaA[stat] === sonaB[stat]}
+    );
+}
 
 export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
     const [loomianData, setLoomianData] = loomianState;
@@ -20,19 +28,18 @@ export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
     const loomianSpeciesData: SpeciesInfo = SpeciesData[loomianData.species];
 
     const personaInputsOnChange = (inputData: PersonalityInputs): void => {
-        let changed: boolean = false;
-
         const newPersonaData =
         Object.values(inputData).reduce((accum: LoomianPersonality, current: PersonaInputsAny) => {
-            if (current.stat === "" || current.factor === 0) {
+            if (current.stat === "") {
                 return accum;
             }
-            if (accum[current.stat] !== current.factor) { changed = true; }
             accum[current.stat] = current.factor;
             return accum;
         }, {ENR: 0, MATK: 0, MDEF: 0, RATK: 0, RDEF: 0, SPE: 0});
 
-        if (!changed) { return; }
+        if (personalitiesEqual(newPersonaData, loomianData.personality)) {
+            return;
+        }
         setLoomianData(prev => {
             return {...prev, personality: newPersonaData};
         });
