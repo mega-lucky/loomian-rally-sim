@@ -3,7 +3,7 @@ import { memo } from "react";
 const RallyItemListItem = memo(function({ value, rallyItemKey, items, onChange }: {
     value: string,
     rallyItemKey: "fruit"|"toy"|"totem",
-    items: [value: string, name: string][],
+    items: [value: string, name: string, description: string][],
     onChange?: (key: "fruit"|"toy"|"totem", value: string) => void
 }) {
     return (
@@ -18,7 +18,7 @@ const RallyItemListItem = memo(function({ value, rallyItemKey, items, onChange }
                 value={value}
             >
                 <option value="">(none)</option>
-                {items.map((it, idx) => <option value={it[0]}key={idx}>{it[1]}</option>)}
+                {items.map((it, idx) => <option value={it[0]}key={idx} title={it[2]}>{it[1]}</option>)}
             </select>
         </li>
     );

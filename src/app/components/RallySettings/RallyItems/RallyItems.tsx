@@ -5,22 +5,22 @@ const RallyItems = memo(function({ rallyItems, onChange }: {
     rallyItems: {fruit: string, toy: string, totem: string},
     onChange?: (key: "fruit"|"toy"|"totem", value: string) => void
 }) {
-    const fruitItems: [string, string][] = [
-        ["stromberry", "Stromberry"],
-        ["blumelon", "Blumelon"],
-        ["tutifruit", "Tutifruit"],
-        ["wonderbean", "Wonderbean"],
-        ["jewelfruit", "Jewelfruit"],
+    const fruitItems: [string, string, string][] = [
+        ["stromberry", "Stromberry", "Rally Loomians that share at least one Unique Point with each Rallying Loomian."],
+        ["blumelon", "Blumelon", "Rally Loomians that share at least two Unique Points with each Rallying Loomian."],
+        ["tutifruit", "Tutifruit", "Rally Loomians that share at least three Unique Points with each Rallying Loomian."],
+        ["wonderbean", "Wonderbean", "Rally Loomians that share at least four Unique Points with the Rally Leader."],
+        ["jewelfruit", "Jewelfruit", "Rally Loomians that share three to five perfect Unique Points with any of the Rallying Loomians."],
     ];
-    const toyItems: [string, string][] = [
-        ["rubber-toy", "Rubber Toy"],
-        ["bouncy-ball", "Bouncy Ball"],
-        ["puzzle-cube", "Puzzle Cube"],
-        ["yo-yo", "Rally Yo-yo"],
+    const toyItems: [string, string, string][] = [
+        ["rubber-toy", "Rubber Toy", "Rally Loomians that share a personality trait with the Rally Leader or Assistant."],
+        ["bouncy-ball", "Bouncy Ball", "Rally Loomians that share a positive personality trait with the Rally Leader."],
+        ["puzzle-cube", "Puzzle Cube", "Rally Loomians that share a positive personality trait with the Rally Assistant."],
+        ["yo-yo", "Yo-yo", "Rally Loomians that have the exact same personality as the Rally Leader."],
     ];
-    const totems: [string, string][] = [
-        ["smiling", "Smiling Totem"],
-        ["scowling", "Scowling Totem"],
+    const totems: [string, string, string][] = [
+        ["smiling", "Smiling Totem", "Rally Loomians with two positive personality traits and one strong negative trait."],
+        ["scowling", "Scowling Totem", "Rally Loomians with a strong positive personality trait and two negative traits."],
     ];
 
     return (
