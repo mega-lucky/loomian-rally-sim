@@ -188,6 +188,22 @@ const solvePersonality = (leaderPersona: LoomianPersonality, assistantPersona: L
     return result;
 }
 
+const solveAbility = (speciesData: SpeciesInfo, isLeaderSA: boolean, abilityCharm: boolean): string => {
+    const abilitiesData = speciesData.abilities;
+
+    const saChance = (abilitiesData.s ? 256 : 0) /
+        (isLeaderSA ? 4 : 1) /
+        (abilityCharm ? 2 : 1);
+    
+    const isSA: boolean = Math.floor(Math.random() * saChance) === 0;
+    if (isSA) { return abilitiesData.s as string; }
+
+    const nAbilities = abilitiesData[1] ? 2 : 1;
+    const abilityIndex = Math.floor(Math.random() * nAbilities) as 0 | 1;
+
+    return abilitiesData[abilityIndex] as string;
+}
+
 const useRally = function(): useRallyReturnType {
     const [rallyLeader, setRallyLeader] = useState<Loomian>(createLoomian());
     const [rallyAssistant, setRallyAssistant] = useState<Loomian>(createLoomian());
@@ -211,9 +227,11 @@ const useRally = function(): useRallyReturnType {
             return;
         }
 
+        const saLeader = rallyLeader.ability === leaderSpeciesData.abilities.s;
+
         const newRallyData: Loomian = {
             species: rallySpecies,
-            ability: rallySpeciesData.abilities[0],
+            ability: solveAbility(rallySpeciesData, saLeader, rallyOptions.abilityCharm),
             ups: solveUPs(
                 rallyLeader.ups,
                 rallyAssistant.species ? rallyAssistant.ups : undefined,

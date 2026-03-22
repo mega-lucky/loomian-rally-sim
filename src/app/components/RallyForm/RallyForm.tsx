@@ -88,7 +88,7 @@ export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
                     !loomianSpeciesData ?
                     <option value="none">(none)</option>
                     : Object.entries(loomianSpeciesData.abilities).map( (it, idx) => {
-                        return <option key={99+idx} value={it}>
+                        return <option key={99+idx} value={it[1]}>
                             {it[1]}
                         </option>
                     })
