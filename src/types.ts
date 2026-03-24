@@ -24,6 +24,8 @@ export type LoomianUPs = {
 
 export interface Loomian {
     species: string,
+    level: number,
+    gleam: false|"alpha"|"gamma",
     ability: string,
     personality: LoomianPersonality,
     ups: LoomianUPs,

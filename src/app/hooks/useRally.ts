@@ -204,6 +204,15 @@ const solveAbility = (speciesData: SpeciesInfo, isLeaderSA: boolean, abilityChar
     return abilitiesData[abilityIndex] as string;
 }
 
+const solveGleam = (gleamCharm: boolean, gleamBoost: boolean): Loomian["gleam"] => {
+    const gleamChance = 4096
+     / (gleamCharm ? 2 : 1)
+     / (gleamBoost ? 16 : 1)
+
+     const isAlpha = Math.floor(Math.random() * gleamChance) === 0;
+     return isAlpha ? "alpha" : false;
+}
+
 const useRally = function(): useRallyReturnType {
     const [rallyLeader, setRallyLeader] = useState<Loomian>(createLoomian());
     const [rallyAssistant, setRallyAssistant] = useState<Loomian>(createLoomian());
@@ -231,6 +240,8 @@ const useRally = function(): useRallyReturnType {
 
         const newRallyData: Loomian = {
             species: rallySpecies,
+            gleam: solveGleam(rallyOptions.gleamCharm, rallyOptions.gleamBoost),
+            level: Math.floor(Math.random() * 5) + 1,
             ability: solveAbility(rallySpeciesData, saLeader, rallyOptions.abilityCharm),
             ups: solveUPs(
                 rallyLeader.ups,

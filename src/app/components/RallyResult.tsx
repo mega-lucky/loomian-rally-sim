@@ -1,3 +1,4 @@
+import { SpeciesData, type SpeciesInfo } from "@/data/species";
 import { getPersonalityFromStat } from "@/data/stats";
 import type { Loomian, PersonalityStat, PersonalityValue } from "@/types";
 import "@styles/rallyresult.css"
@@ -12,14 +13,28 @@ export default function RallyResult({loomianData} : {
         return accum + getPersonalityFromStat(stat as PersonalityStat, factor) + " ";
     }, "").trim() || "Indifferent";
 
+    const speciesData: SpeciesInfo|undefined = SpeciesData[loomianData.species];
+    const isSecretAbility: boolean = loomianData.ability === speciesData?.abilities.s;
+
     return (
         <div className="rally-result">
-            <img src="none" alt="none" />
+            <div className="rally-result-img-wrap">
+                <img src="none" alt="none" />
+                <div className="rally-result-indicators">
+                    {loomianData.gleam && <div>Gleam</div>}
+                    {isSecretAbility && <div>Secret Ability</div>}
+                </div>
+            </div>
             <table>
                 <tbody>
                     <tr>
-                        <th>Species:</th>
-                        <td>{loomianData.species || "none"}</td>
+                        <td colSpan={2} className="no-font-style">
+                        {speciesData?.name ||
+                        loomianData.species ||
+                        "none"}
+                        &nbsp;
+                        Lvl. {loomianData.level}
+                        </td>
                     </tr>
                     <tr>
                         <th>Ability:</th>

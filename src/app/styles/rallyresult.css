@@ -7,14 +7,18 @@
     padding: 12px;
     border: 1px solid grey;
 }
-.rally-result img {
+.rally-result-img-wrap {
     aspect-ratio: 1/1;
     flex-grow: 1;
     border: 1px solid grey;
+    position: relative;
 }
-.rally-result legend {
-    font-weight: bold;
-    text-align: center;
+.rally-result-indicators {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    display: flex;
+    flex-flow: column;
 }
 .rally-result table {
     border-spacing: 0.5em 0;
@@ -30,6 +34,9 @@
     vertical-align: top;
     font-style: italic;
     width: 12em;
+}
+.no-font-style{
+    font-style: unset !important;
 }
 .result-up-table {
     padding-block: 5px;

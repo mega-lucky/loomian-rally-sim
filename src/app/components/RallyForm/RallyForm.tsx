@@ -50,6 +50,8 @@ export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
 
         setLoomianData({
             species: value,
+            gleam: false,
+            level: 0,
             ability: newSpeciesData.abilities[0],
             personality: {ENR: 0, MATK: 0, MDEF: 0, RATK: 0, RDEF: 0, SPE: 0},
             ups: {HP: 40, ENR: 40, MATK: 40, MDEF: 40, RATK: 40, RDEF: 40, SPE: 40},
