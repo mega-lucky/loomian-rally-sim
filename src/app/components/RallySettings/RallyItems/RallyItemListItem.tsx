@@ -21,7 +21,7 @@ const RallyItemListItem = memo(function({ value, rallyItemKey, items, onChange }
                 {
                     items.map(rally_item =>
                         <option 
-                            value={rally_item}
+                            value={rally_item[0]}
                             key={JSON.stringify(rally_item)}
                             title={rally_item[2]}
                         >
