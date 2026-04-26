@@ -119,9 +119,10 @@ const RallyOptionsTable = memo(function({ rallyOptions, onChange, rallyLoomianAb
                         >
                             <option value="">(any ability)</option>
                             {
-                                rallyLoomianAbilityList && Object.values(rallyLoomianAbilityList).map(it => {
-                                    return <option value={it}>{it}</option>
-                                })
+                                rallyLoomianAbilityList
+                                && Object.values(rallyLoomianAbilityList).map(ability =>
+                                    <option value={ability} key={ability}>{ability}</option>
+                                )
                             }
                         </select>
                     </td>

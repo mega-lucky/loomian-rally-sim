@@ -18,7 +18,17 @@ const RallyItemListItem = memo(function({ value, rallyItemKey, items, onChange }
                 value={value}
             >
                 <option value="">(none)</option>
-                {items.map((it, idx) => <option value={it[0]}key={idx} title={it[2]}>{it[1]}</option>)}
+                {
+                    items.map(rally_item =>
+                        <option 
+                            value={rally_item}
+                            key={JSON.stringify(rally_item)}
+                            title={rally_item[2]}
+                        >
+                            {rally_item[1]}
+                        </option>
+                    )
+                }
             </select>
         </li>
     );

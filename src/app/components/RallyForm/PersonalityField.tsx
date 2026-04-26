@@ -57,11 +57,21 @@ const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDi
                     onChange={ev => updateInputs("SET_STRONG", ev.target.value)}
                 >
                     <option value=":0">(none)</option>
-                    {strongPersonalities.positive.map((it,idx) =>
-                        <option value={`${getStatFromPersonality(it)}:2`} key={idx}>{it}</option>
+                    {strongPersonalities.positive.map(strongPos =>
+                        <option
+                            value={`${getStatFromPersonality(strongPos)}:2`}
+                            key={strongPos}
+                        >
+                            {strongPos}
+                        </option>
                     )}
-                    {strongPersonalities.negative.map((it,idx) =>
-                        <option value={`${getStatFromPersonality(it)}:-2`} key={idx}>{it}</option>
+                    {strongPersonalities.negative.map(strongNeg =>
+                        <option
+                            value={`${getStatFromPersonality(strongNeg)}:-2`}
+                            key={strongNeg}
+                        >
+                            {strongNeg}
+                        </option>
                     )}
                 </select>
             </div>
@@ -74,12 +84,13 @@ const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDi
                 >
                     {strongInput.factor === 0 && <option value=":0">(none)</option>}
                     {
-                        posOptions.map((it, idx) => statsShort[idx+1] == strongInput.stat ? null :
+                        posOptions.map((sona, idx) => statsShort[idx+1] == strongInput.stat ? null :
                             <option
-                                value={`${getStatFromPersonality(it)}:${strongInput.factor > 0 ? -1 : 1}`}
-                                key={idx}
-                                disabled={getStatFromPersonality(it) === negInput.stat}
-                            >{it}
+                                value={`${getStatFromPersonality(sona)}:${strongInput.factor > 0 ? -1 : 1}`}
+                                key={sona}
+                                disabled={getStatFromPersonality(sona) === negInput.stat}
+                            >
+                                {sona}
                             </option>
                         )
                     }
@@ -94,12 +105,13 @@ const PersionalityField = memo(function({ loomno, personaInputs, personaInputsDi
                 >
                     {strongInput.factor === 0 && <option value=":0">(none)</option>}
                     {
-                        negOptions.map((it, idx) =>  statsShort[idx+1] == strongInput.stat ? null :
+                        negOptions.map((sona, idx) =>  statsShort[idx+1] == strongInput.stat ? null :
                             <option
-                                value={`${getStatFromPersonality(it)}:${strongInput.factor < 0 ? 1 : -1}`}
-                                key={idx}
-                                disabled={getStatFromPersonality(it) === posInput.stat}
-                            >{it}
+                                value={`${getStatFromPersonality(sona)}:${strongInput.factor < 0 ? 1 : -1}`}
+                                key={sona}
+                                disabled={getStatFromPersonality(sona) === posInput.stat}
+                            >
+                                {sona}
                             </option>
                         )
                     }

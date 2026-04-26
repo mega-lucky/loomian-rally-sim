@@ -18,11 +18,11 @@ const UPsField = memo(function({ loomno, upsData, onChange } : {
         <fieldset className="rally-form-ups-wrap">
             <legend>UPs:</legend>
             <div className="rally-form-ups-inputs-wrap">{
-                statsShort.map((stat, idx) => {
+                statsShort.map(stat => {
                     const id: string = `${stat}-up-${loomno}`;
 
                     return (
-                        <div className="rally-form-ups-input" key={idx}>
+                        <div className="rally-form-ups-input" key={stat}>
                             <label htmlFor={id}>{stat}</label>
                             <input
                             type="number"
