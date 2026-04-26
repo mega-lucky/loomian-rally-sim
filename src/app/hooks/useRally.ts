@@ -213,6 +213,20 @@ const solveGleam = (gleamCharm: boolean, gleamBoost: boolean): Loomian["gleam"] 
      return isAlpha ? "alpha" : false;
 }
 
+const autoUPsMatch = (rallyOptions: RallyOptions, UPs: LoomianUPs) => {
+    return (
+        (!rallyOptions.autoHPup || rallyOptions.autoHPupValue == UPs.HP) &&
+        (!rallyOptions.autoENRup || rallyOptions.autoENRupValue == UPs.ENR) &&
+        (!rallyOptions.autoMATKup || rallyOptions.autoMATKupValue == UPs.MATK) &&
+        (!rallyOptions.autoMDEFup || rallyOptions.autoMDEFupValue == UPs.MDEF) &&
+        (!rallyOptions.autoRATKup || rallyOptions.autoRATKupValue == UPs.RATK) &&
+        (!rallyOptions.autoRDEFup || rallyOptions.autoRDEFupValue == UPs.RDEF) &&
+        (!rallyOptions.autoSPEup || rallyOptions.autoSPEupValue == UPs.SPE)
+    );
+}
+
+const MAX_AUTO_RALLY_TRIES: number = 999999;
+
 const useRally = function(): useRallyReturnType {
     const [rallyLeader, setRallyLeader] = useState<Loomian>(createLoomian());
     const [rallyAssistant, setRallyAssistant] = useState<Loomian>(createLoomian());
@@ -237,27 +251,42 @@ const useRally = function(): useRallyReturnType {
         }
 
         const saLeader = rallyLeader.ability === leaderSpeciesData.abilities.s;
+        const { autoRally, autoAbility, autoUPs, autoGleaming } = rallyOptions;
 
-        const newRallyData: Loomian = {
-            species: rallySpecies,
-            gleam: solveGleam(rallyOptions.gleamCharm, rallyOptions.gleamBoost),
-            level: Math.floor(Math.random() * 5) + 1,
-            ability: solveAbility(rallySpeciesData, saLeader, rallyOptions.abilityCharm),
-            ups: solveUPs(
-                rallyLeader.ups,
-                rallyAssistant.species ? rallyAssistant.ups : undefined,
-                rallyItems.fruit
-            ),
-            personality: solvePersonality(
-                rallyLeader.personality,
-                rallyAssistant.species ? rallyAssistant.personality : undefined,
-                rallyItems.toy,
-                rallyItems.totem
-            ),
-            moves: []
-        };
+        let newRallyData: Loomian;
+        let rally_tries: number = 0;
+        do {
+            newRallyData = {
+                species: rallySpecies,
+                gleam: solveGleam(rallyOptions.gleamCharm, rallyOptions.gleamBoost),
+                level: Math.floor(Math.random() * 5) + 1,
+                ability: solveAbility(rallySpeciesData, saLeader, rallyOptions.abilityCharm),
+                ups: solveUPs(
+                    rallyLeader.ups,
+                    rallyAssistant.species ? rallyAssistant.ups : undefined,
+                    rallyItems.fruit
+                ),
+                personality: solvePersonality(
+                    rallyLeader.personality,
+                    rallyAssistant.species ? rallyAssistant.personality : undefined,
+                    rallyItems.toy,
+                    rallyItems.totem
+                ),
+                moves: []
+            };
+            rally_tries ++;
+        } while (
+            (autoRally && rally_tries < MAX_AUTO_RALLY_TRIES) &&
+            ((autoAbility && newRallyData.ability !== autoAbility) ||
+            (autoUPs && !autoUPsMatch(rallyOptions, newRallyData.ups)) ||
+            (autoGleaming && newRallyData.gleam !== "alpha"))
+        )
 
-        setRallyResult(newRallyData);
+        if (rally_tries < MAX_AUTO_RALLY_TRIES) {
+            setRallyResult(newRallyData);
+        } else {
+            alert(`Failed to rally loomian. Exceeded maximum number of tries (${MAX_AUTO_RALLY_TRIES})`);
+        }
     }
 
     return {
