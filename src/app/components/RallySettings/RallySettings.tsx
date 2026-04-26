@@ -3,10 +3,12 @@ import { useCallback } from "react";
 import RallyItems from "./RallyItems";
 import type { RallyOptionKey, RallyOptions, RallyOptionValue, RallyItemsType, StateSetter } from "@/types"
 import RallyOptionsTable from "./RallyOptionsTable";
+import type { SpeciesInfo } from "@/data/species";
 
-export default function RallySettings({ rallyItemsState, rallyOptionsState }: {
+export default function RallySettings({ rallyItemsState, rallyOptionsState, rallyLoomianAbilityList }: {
     rallyItemsState: [RallyItemsType, StateSetter<RallyItemsType>],
-    rallyOptionsState: [RallyOptions, StateSetter<RallyOptions>]
+    rallyOptionsState: [RallyOptions, StateSetter<RallyOptions>],
+    rallyLoomianAbilityList: SpeciesInfo["abilities"]|undefined
 }) {
     const [ rallyItems, setRallyItems ] = rallyItemsState;
     const [ rallyOptions, setRallyOptions] = rallyOptionsState;
@@ -27,13 +29,14 @@ export default function RallySettings({ rallyItemsState, rallyOptionsState }: {
         <fieldset className="rally-settings">
             <legend>Rally Settings:</legend>
             <RallyItems
-            rallyItems={rallyItems}
-            onChange={rallyItemOnChange}
+                rallyItems={rallyItems}
+                onChange={rallyItemOnChange}
             />
             
             <RallyOptionsTable
-            rallyOptions={rallyOptions}
-            onChange={rallyOptionsOnChange}
+                rallyOptions={rallyOptions}
+                onChange={rallyOptionsOnChange}
+                rallyLoomianAbilityList={rallyLoomianAbilityList}
             />
         </fieldset>
     );

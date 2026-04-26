@@ -2,10 +2,12 @@ import { memo, useCallback } from "react";
 import type { LoomianStat, UniquePointValue, RallyOptions, RallyOptionKey, RallyOptionValue } from "@/types";
 import AutoRallyUPInputs from "./AutoRallyUPInputs";
 import RallyCheckOption from "./RallyCheckOption";
+import type { SpeciesInfo } from "@/data/species";
 
-const RallyOptionsTable = memo(function({ rallyOptions, onChange }: {
+const RallyOptionsTable = memo(function({ rallyOptions, onChange, rallyLoomianAbilityList }: {
     rallyOptions: RallyOptions,
-    onChange?: (key: RallyOptionKey, value: RallyOptionValue) => void
+    onChange?: (key: RallyOptionKey, value: RallyOptionValue) => void,
+    rallyLoomianAbilityList: SpeciesInfo["abilities"]|undefined
 }) {
     const { autoRally, autoUPs } = rallyOptions;
     const onAutoUPChange = useCallback((stat: LoomianStat, value: string) => {
@@ -116,8 +118,11 @@ const RallyOptionsTable = memo(function({ rallyOptions, onChange }: {
                             onChange={(ev) => onChange?.("autoAbility", ev.target.value)}
                         >
                             <option value="">(any ability)</option>
-                            <option value="">Awakening</option>
-                            <option value="">Terrifying</option>
+                            {
+                                rallyLoomianAbilityList && Object.values(rallyLoomianAbilityList).map(it => {
+                                    return <option value={it}>{it}</option>
+                                })
+                            }
                         </select>
                     </td>
                     <td></td>
