@@ -1,5 +1,5 @@
 import type { SpeciesInfo } from "@/data/species";
-import { memo, useState, type ChangeEventHandler, type FocusEventHandler, type KeyboardEventHandler } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState, type ChangeEventHandler, type FocusEventHandler, type KeyboardEventHandler } from "react";
 import { SpeciesData } from "@/data/species";
 
 const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
@@ -7,43 +7,128 @@ const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
     onSpeciesChange?: (value: string) => void
 }) {
     const [speciesInput, setSpeciesInput] = useState<string>("");
+    const [speciesOptionsVisible, setSpeciesOptionsVisible] = useState<boolean>(false);
+    const [activeIndex, setActiveIndex] = useState<number>(-1);
+
+    const speciesInputRef = useRef<HTMLInputElement>(null);
+    const speciesOptionsRef = useRef<HTMLUListElement>(null);
+    const isKeyboardActive = useRef<boolean>(false);
+
+    const filteredSpeciesList: [string, SpeciesInfo][] = useMemo(() =>
+        Object.entries(SpeciesData).filter(([key]) =>
+            key.includes(speciesInput.toLowerCase().replaceAll(/\s/g, '-'))
+        ),
+    [speciesInput]);
 
     const speciesInputOnChange: ChangeEventHandler<HTMLInputElement> = (event) => {
         setSpeciesInput(event.target.value);
+        setActiveIndex(-1);
+    }
+    const speciesInputOnFocus: FocusEventHandler<HTMLInputElement> = () => {
+        setSpeciesInput("");
+        setSpeciesOptionsVisible(true);
     }
     const speciesInputOnBlur: FocusEventHandler<HTMLInputElement> = () => {
-        tryChangeSpecies();
+        tryChangeSpecies(speciesInput);
+        setSpeciesOptionsVisible(false);
     }
     const speciesInputOnKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
+        switch (event.key) {
+            case "ArrowDown": {
+                event.preventDefault();
+                setActiveIndex(prev => Math.min(prev + 1, filteredSpeciesList.length - 1));
+                isKeyboardActive.current = true;
+                break;
+            }
+            case "ArrowUp": {
+                event.preventDefault();
+                setActiveIndex(prev => Math.max(prev - 1, -1));
+                isKeyboardActive.current = true;
+                break;
+            }
+            case "Enter": {
+                if (activeIndex >= 0) {
+                    event.preventDefault();
+                    speciesInputRef.current?.blur();
+                    tryChangeSpecies(filteredSpeciesList[activeIndex][0]);
+                    return;
+                }
+                break;
+            }
+        }
+
         if (event.key === "Enter") {
             event.preventDefault()
-            tryChangeSpecies();
+            tryChangeSpecies(speciesInput);
             event.currentTarget.blur();
         }
     }
-    const tryChangeSpecies = () => {
-        const key: string = speciesInput
+
+    const speciesOptionOnMouseEnter = (event: React.MouseEvent<HTMLLIElement>) => {
+        if (isKeyboardActive.current) { return; }
+
+        const target: HTMLLIElement = event.currentTarget;
+        setActiveIndex(filteredSpeciesList.findIndex(
+            ([key]) => key === target.getAttribute("data-value")
+        ));
+    }
+
+    const tryChangeSpecies = (newValue: string) => {
+        const key: string = newValue
             .toLowerCase()
             .replaceAll(/\s/g, '-');
 
         const species: SpeciesInfo|undefined = SpeciesData[key];
         if (!species || species === loomianSpeciesData) {
-            setSpeciesInput(loomianSpeciesData?.name ?? "");
+            setSpeciesInput(loomianSpeciesData.name ?? "");
             return;
         }
         setSpeciesInput(species.name);
         onSpeciesChange?.(key);
     }
+
+    useEffect(() => {
+        if (activeIndex < 0 || !speciesOptionsRef.current) { return; }
+
+        const activeLI: HTMLLIElement = speciesOptionsRef.current.querySelectorAll("li")[activeIndex];
+        activeLI?.scrollIntoView({ block: "nearest" });
+    }, [activeIndex]);
+
     return (
-        <input
-            name="species-input"
-            className="rally-form-species"
-            placeholder="Species..."
-            value={speciesInput}
-            onChange={speciesInputOnChange}
-            onBlur={speciesInputOnBlur}
-            onKeyDown={speciesInputOnKeyDown}
-        ></input>
+        <div className="rally-form-species-wrap">
+            <input
+                name="species-input"
+                className="rally-form-species"
+                placeholder="Species..."
+                value={speciesInput}
+                ref={speciesInputRef}
+                onChange={speciesInputOnChange}
+                onFocus={speciesInputOnFocus}
+                onBlur={speciesInputOnBlur}
+                onKeyDown={speciesInputOnKeyDown}
+            ></input>
+            {
+                speciesOptionsVisible &&
+                <ul
+                    className="rally-form-species-options"
+                    onMouseMove={() => isKeyboardActive.current = false}
+                    ref={speciesOptionsRef}
+                >{
+                    filteredSpeciesList.map(([key, info], index) =>
+                        <li
+                            key={key}
+                            data-value={key}
+                            className={index === activeIndex ? "highlighted" : undefined}
+                            onMouseEnter={speciesOptionOnMouseEnter}
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => {speciesInputRef.current?.blur(); tryChangeSpecies(key)} }
+                        >
+                            {info.name}
+                        </li>
+                    )
+                }</ul>
+            }
+        </div>
     );
 });
 
