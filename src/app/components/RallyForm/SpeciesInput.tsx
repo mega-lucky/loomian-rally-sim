@@ -30,7 +30,6 @@ const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
     }
     const speciesInputOnBlur: FocusEventHandler<HTMLInputElement> = () => {
         tryChangeSpecies(speciesInput);
-        setSpeciesOptionsVisible(false);
     }
     const speciesInputOnKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
         switch (event.key) {
@@ -59,7 +58,6 @@ const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
 
         if (event.key === "Enter") {
             event.preventDefault()
-            tryChangeSpecies(speciesInput);
             event.currentTarget.blur();
         }
     }
@@ -74,6 +72,8 @@ const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
     }
 
     const tryChangeSpecies = (newValue: string) => {
+        setSpeciesOptionsVisible(false);
+        
         const key: string = newValue
             .toLowerCase()
             .replaceAll(/\s/g, '-');
