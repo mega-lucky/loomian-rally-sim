@@ -11,10 +11,10 @@ export default function App() {
 
     const leaderObject: Loomian = rallyLeader[0];
     const leaderBaseInfo: SpeciesInfo|undefined = leaderObject.species
-        ? SpeciesData[leaderObject.species]
+        ? SpeciesData.get(leaderObject.species)
         : undefined;
     const rallyLoomInfo = leaderBaseInfo?.rallies
-        ? SpeciesData[leaderBaseInfo.rallies]
+        ? SpeciesData.get(leaderBaseInfo.rallies)
         : undefined;
 
     return (

@@ -235,7 +235,7 @@ const useRally = function(): useRallyReturnType {
     const [rallyOptions, setRallyOptions] = useState<RallyOptions>(createRallyOptions());
     
     const solveRally = (): void => {
-        const leaderSpeciesData: SpeciesInfo|undefined = SpeciesData[rallyLeader.species];
+        const leaderSpeciesData: SpeciesInfo|undefined = SpeciesData.get(rallyLeader.species);
         if (!leaderSpeciesData) {
             return;
         }
@@ -245,7 +245,7 @@ const useRally = function(): useRallyReturnType {
             return;
         }
 
-        const rallySpeciesData: SpeciesInfo|undefined = SpeciesData[rallySpecies];
+        const rallySpeciesData: SpeciesInfo|undefined = SpeciesData.get(rallySpecies);
         if (!rallySpeciesData) {
             return;
         }

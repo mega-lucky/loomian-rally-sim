@@ -24,7 +24,7 @@ const personalitiesEqual = (sonaA: LoomianUPs, sonaB: LoomianPersonality) => {
 export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
     const [loomianData, setLoomianData] = loomianState;
     const [ personaInputs, personaInputsDispatch ] = usePersonaInputs();
-    const loomianSpeciesData: SpeciesInfo = SpeciesData[loomianData.species];
+    const loomianSpeciesData: SpeciesInfo|undefined = SpeciesData.get(loomianData.species);
 
     const personaInputsOnChange = (inputData: PersonalityInputs): void => {
         const newPersonaData =
@@ -45,7 +45,7 @@ export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
     }
 
     const onSpeciesChange = (value: string): void => {
-        const newSpeciesData = SpeciesData[value];
+        const newSpeciesData = SpeciesData.get(value);
         if (newSpeciesData === undefined) { return; }
 
         setLoomianData({
@@ -77,8 +77,8 @@ export default function RallyForm({ loomno, loomianState }: RallyFormProps) {
             <legend>{loomno === 1 ? "Rally Leader" : "Rally Assistant"}</legend>
             <img className="rally-form-img" src="none" alt="Loomian"/>
             <SpeciesInput
-            loomianSpeciesData={loomianSpeciesData}
-            onSpeciesChange={onSpeciesChange}
+                loomianSpeciesData={loomianSpeciesData}
+                onSpeciesChange={onSpeciesChange}
             />
             <div className="rally-form-ability-wrap">
                 <label htmlFor={`ability-select-${loomno}`}>Ability:</label>

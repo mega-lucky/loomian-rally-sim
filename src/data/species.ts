@@ -7,59 +7,59 @@ export interface SpeciesInfo {
     readonly rallies: string|false,
 }
 
-export const SpeciesData: {[key: string]: SpeciesInfo} = {
-    embit: {
+export const SpeciesData: ReadonlyMap<string, SpeciesInfo> = new Map([
+    ["embit", {
         name: "Embit",
         type: ["fire"],
         abilities: {0: "awakening", s: "terrifying"},
         rallies: "embit"
-    },
-    rabburn: {
+    }],
+    ["rabburn", {
         name: "Rabburn",
         type: ["fire"],
         abilities: {0: "awakening", s: "terrifying"},
         rallies: "embit"
-    },
-    searknight: {
+    }],
+    ["searknight", {
         name: "Searknight",
         type: ["fire", "steel"],
         abilities: {0: "awakening", s: "terrifying"},
         rallies: "embit"
-    },
-    dripple: {
+    }],
+    ["dripple", {
         name: "Dripple",
         type: ["water"],
         abilities: {0: "awakening", s: "power-napper"},
         rallies: "dripple"
-    },
-    reptide: {
+    }],
+    ["reptide", {
         name: "Reptide",
         type: ["water"],
         abilities: {0: "awakening", s: "power-napper"},
         rallies: "dripple"
-    },
-    luminami: {
+    }],
+    ["luminami", {
         name: "Luminami",
         type: ["water", "light"],
         abilities: {0: "awakening", s: "power-napper"},
         rallies: "dripple"
-    },
-    fevine: {
+    }],
+    ["fevine", {
         name: "Fevine",
         type: ["plant"],
         abilities: {0: "awakening", s: "thriving-pace"},
         rallies: "fevine"
-    },
-    felver: {
+    }],
+    ["felver", {
         name: "Felver",
         type: ["plant"],
         abilities: {0: "awakening", s: "thriving-pace"},
         rallies: "fevine"
-    },
-    tahtab: {
+    }],
+    ["tahtab", {
         name: "Tahtab",
         type: ["plant", "brawler"],
         abilities: {0: "awakening", s: "thriving-pace"},
         rallies: "fevine"
-    },
-}
+    }],
+]);

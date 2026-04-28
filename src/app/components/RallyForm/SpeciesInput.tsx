@@ -3,7 +3,7 @@ import React, { memo, useEffect, useMemo, useRef, useState, type ChangeEventHand
 import { SpeciesData } from "@/data/species";
 
 const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
-    loomianSpeciesData: SpeciesInfo,
+    loomianSpeciesData?: SpeciesInfo,
     onSpeciesChange?: (value: string) => void
 }) {
     const [speciesInput, setSpeciesInput] = useState<string>("");
@@ -15,7 +15,7 @@ const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
     const isKeyboardActive = useRef<boolean>(false);
 
     const filteredSpeciesList: [string, SpeciesInfo][] = useMemo(() =>
-        Object.entries(SpeciesData).filter(([key]) =>
+        [...SpeciesData.entries()].filter(([key]) =>
             key.includes(speciesInput.toLowerCase().replaceAll(/\s/g, '-'))
         ),
     [speciesInput]);
@@ -78,9 +78,9 @@ const SpeciesInput = memo(function({ loomianSpeciesData, onSpeciesChange }: {
             .toLowerCase()
             .replaceAll(/\s/g, '-');
 
-        const species: SpeciesInfo|undefined = SpeciesData[key];
+        const species: SpeciesInfo|undefined = SpeciesData.get(key);
         if (!species || species === loomianSpeciesData) {
-            setSpeciesInput(loomianSpeciesData.name ?? "");
+            setSpeciesInput(loomianSpeciesData?.name ?? "");
             return;
         }
         setSpeciesInput(species.name);

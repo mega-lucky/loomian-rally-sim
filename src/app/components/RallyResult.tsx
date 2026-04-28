@@ -13,7 +13,7 @@ export default function RallyResult({loomianData} : {
         return accum + getPersonalityFromStat(stat as PersonalityStat, factor) + " ";
     }, "").trim() || "Indifferent";
 
-    const speciesData: SpeciesInfo|undefined = SpeciesData[loomianData.species];
+    const speciesData: SpeciesInfo|undefined = SpeciesData.get(loomianData.species);
     const isSecretAbility: boolean = loomianData.ability === speciesData?.abilities.s;
 
     return (
