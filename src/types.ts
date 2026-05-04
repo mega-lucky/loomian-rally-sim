@@ -1,5 +1,19 @@
 import type { Dispatch, SetStateAction } from "react";
 
+export type LoomianType = 
+    "air" | "ancient" | "dark" | "earth" | "electric" | "fire" |
+    "ice" | "light" | "brawler" | "metal" | "mind" | "plant" |
+    "simple" | "toxic" | "spirit" |"bug" | "water";
+
+export interface SpeciesInfo {
+    readonly id: number,
+    readonly name: string,
+    readonly type: [LoomianType, LoomianType?],
+    readonly abilities: {0: string, 1?: string, s?: string},
+    readonly genderRatio: {m: number, f: number},
+    readonly rallies: string|false,
+}
+
 export type PersonalityValue = -2 | -1 | 0 | 1 | 2;
 export type UniquePointValue =
     1 |2 |3 |4 |5 |6 |7 |8 |9 |10|
