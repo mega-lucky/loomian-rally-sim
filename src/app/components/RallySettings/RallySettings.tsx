@@ -1,9 +1,8 @@
 import "@styles/rallysettings.css"
 import { useCallback } from "react";
 import RallyItems from "./RallyItems";
-import type { RallyOptionKey, RallyOptions, RallyOptionValue, RallyItemsType, StateSetter } from "@/types"
+import type { RallyOptionKey, RallyOptions, RallyOptionValue, RallyItemsType, StateSetter, SpeciesInfo } from "@/types"
 import RallyOptionsTable from "./RallyOptionsTable";
-import type { SpeciesInfo } from "@/data/species";
 
 export default function RallySettings({ rallyItemsState, rallyOptionsState, rallyLoomianAbilityList }: {
     rallyItemsState: [RallyItemsType, StateSetter<RallyItemsType>],

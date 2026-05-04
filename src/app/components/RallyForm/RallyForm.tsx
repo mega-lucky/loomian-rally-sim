@@ -4,8 +4,8 @@ import PersionalityField, { type PersonaInputsAny, type PersonalityInputs } from
 import UPsField from "./UPsField";
 import SpeciesInput from "./SpeciesInput";
 
-import type { Loomian, LoomianPersonality, LoomianStat, LoomianUPs, StateSetter, UniquePointValue } from "@/types";
-import { SpeciesData, type SpeciesInfo } from "@/data/species";
+import type { Loomian, LoomianPersonality, LoomianStat, LoomianUPs, StateSetter, UniquePointValue, SpeciesInfo } from "@/types";
+import { SpeciesData } from "@/data/species";
 import { usePersonaInputs } from "@/app/hooks/usePersonaInputs";
 import { short } from "@/data/stats";
 

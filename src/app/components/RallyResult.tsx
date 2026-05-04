@@ -1,6 +1,6 @@
-import { SpeciesData, type SpeciesInfo } from "@/data/species";
+import { SpeciesData } from "@/data/species";
 import { getPersonalityFromStat } from "@/data/stats";
-import type { Loomian, PersonalityStat, PersonalityValue } from "@/types";
+import type { Loomian, PersonalityStat, PersonalityValue, SpeciesInfo } from "@/types";
 import "@styles/rallyresult.css"
 
 export default function RallyResult({loomianData} : {

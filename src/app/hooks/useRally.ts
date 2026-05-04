@@ -1,5 +1,5 @@
-import type { Loomian, RallyOptions, RallyItemsType, LoomianUPs, LoomianStat, UniquePointValue, LoomianPersonality, PersonalityStat, PersonalityValue, StateSetter } from "@/types"
-import { SpeciesData, type SpeciesInfo } from "@/data/species";
+import type { Loomian, RallyOptions, RallyItemsType, LoomianUPs, LoomianStat, UniquePointValue, LoomianPersonality, PersonalityStat, PersonalityValue, StateSetter, SpeciesInfo } from "@/types"
+import { SpeciesData } from "@/data/species";
 import { useState } from "react"
 import { short } from "@/data/stats";
 import { createLoomian, createRallyItems, createRallyOptions } from "@/factories";

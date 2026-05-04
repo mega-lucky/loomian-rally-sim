@@ -3,8 +3,8 @@ import RallySettings from "@components/RallySettings";
 import RallyResult from "@components/RallyResult";
 import useRally from "@hooks/useRally";
 import "@styles/index.css"
-import { SpeciesData, type SpeciesInfo } from "@/data/species";
-import type { Loomian } from "@/types";
+import { SpeciesData } from "@/data/species";
+import type { Loomian, SpeciesInfo } from "@/types";
 
 export default function App() {
     const { rallyLeader, rallyAssistant, rallyItems, rallyOptions, rallyResult, solveRally } = useRally();

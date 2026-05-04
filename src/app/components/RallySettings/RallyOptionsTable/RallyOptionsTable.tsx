@@ -1,8 +1,7 @@
 import { memo, useCallback } from "react";
-import type { LoomianStat, UniquePointValue, RallyOptions, RallyOptionKey, RallyOptionValue } from "@/types";
+import type { LoomianStat, UniquePointValue, RallyOptions, RallyOptionKey, RallyOptionValue, SpeciesInfo } from "@/types";
 import AutoRallyUPInputs from "./AutoRallyUPInputs";
 import RallyCheckOption from "./RallyCheckOption";
-import type { SpeciesInfo } from "@/data/species";
 
 const RallyOptionsTable = memo(function({ rallyOptions, onChange, rallyLoomianAbilityList }: {
     rallyOptions: RallyOptions,

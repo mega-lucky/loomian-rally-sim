@@ -1,4 +1,4 @@
-import type { SpeciesInfo } from "@/data/species";
+import type { SpeciesInfo } from "@/types";
 import React, { memo, useEffect, useMemo, useRef, useState, type ChangeEventHandler, type FocusEventHandler, type KeyboardEventHandler } from "react";
 import { SpeciesData } from "@/data/species";
 
